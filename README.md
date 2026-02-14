@@ -1,72 +1,141 @@
 📌 MindSwitch
 
 Domain-Switchable Cognitive Training Chrome Extension with Persistent Behavioral Analytics
+MindSwitch is a full-stack Chrome Extension + Flask backend system designed to provide structured cognitive guidance instead of direct solutions.
+Unlike traditional AI sidebars that give answers, MindSwitch follows a mentor-style escalation approach to improve problem-solving skills while tracking behavioral dependency metrics.
 
-🚀 Overview
+🚀 Features
+🧠 Domain-Switchable Modes
 
-MindSwitch is a Chrome Extension + Flask backend system that provides structured cognitive guidance instead of direct solutions.
+DSA Mode – Structured algorithmic guidance
+Interview Mode – STAR-based response framework
+Study Mode – Concept extraction and reinforcement
 
-It supports:
+📈 Structured Hint Escalation
 
-DSA Mode
+Each guidance request provides 3 controlled levels:
 
-Interview Mode
+Level 1 – Concept direction
+Level 2 – Pattern insight
+Level 3 – Structured approach
 
-Study Mode
+No direct solutions are provided.
 
-The system tracks user behavior, computes dependency metrics, and stores persistent analytics using MySQL.
-
-🧠 Key Features
-
-Context-aware content extraction
-
-Structured 3-level hint escalation
+🗄 Persistent Analytics (MySQL)
 
 Session-based tracking
+Unlock logging
+Mode usage tracking
+Level 2 vs Level 3 usage distribution
+Level 3 dependency percentage calculation
 
-MySQL persistent storage
+🔍 Context-Aware Content Extraction
 
-Behavioral analytics
+Dynamically injects content script (Manifest V3 compliant)
+Extracts page content safely
+Applies rule-based pattern detection (e.g., Binary Search, Graph, DP)
 
-Dependency scoring engine
+📊 Behavioral Metrics
 
-Dynamic content script injection (Manifest V3 compliant)
+The system computes:
+Total unlocks
+Mode distribution
+Level usage frequency
+Level 3 dependency percentage
+This enables quantifying over-reliance on deeper hints.
 
 🏗 Architecture
-Chrome Extension
+Chrome Extension (Manifest V3)
         ↓
-Flask Backend
+Flask REST API
         ↓
 MySQL Database
         ↓
 Analytics Engine
 
-📊 Analytics
-
-Total unlocks
-
-Mode usage distribution
-
-Level 2 vs Level 3 usage
-
-Level 3 dependency percentage
-
-🔮 Future Improvements
-
-AI-powered hint engine with guardrails
-
-Adaptive weakness detection
-
-Personalized difficulty scaling
-
-Analytics dashboard UI
-
 🛠 Tech Stack
+Frontend: JavaScript (Chrome Extension - MV3)
+Backend: Flask (Python)
+Database: MySQL
+Architecture: REST API-based modular design
 
-JavaScript (Chrome Extension - MV3)
+📂 Project Structure
+MindSwitch/
+│
+├── backend/
+│   ├── app.py
+│   ├── requirements.txt
+│
+├── extension/
+│   ├── manifest.json
+│   ├── popup.html
+│   ├── popup.js
+│   ├── styles.css
+│   ├── content.js
+│
+└── README.md
 
-Flask (Python)
+⚙️ Setup Instructions
+1️⃣ Backend Setup
+cd backend
+python -m venv venv
+venv\Scripts\activate   # Windows
+pip install -r requirements.txt
+python app.py
 
-MySQL
 
-REST API Architecture
+Backend runs on:
+http://127.0.0.1:5000
+
+2️⃣ Database Setup
+CREATE DATABASE mindswitch;
+USE mindswitch;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE sessions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    mode VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE unlock_logs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    session_id INT,
+    mode VARCHAR(50),
+    level_unlocked INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+3️⃣ Chrome Extension Setup
+
+Open chrome://extensions/
+Enable Developer Mode
+Click Load Unpacked
+Select the extension/ folder
+
+🔮 Future Enhancements
+
+AI-powered hint engine with strict solution guardrails
+Adaptive weakness scoring
+Personalized learning recommendations
+Interactive analytics dashboard
+User authentication system
+
+🎯 Project Objective
+
+MindSwitch aims to:
+Encourage structured thinking
+Prevent passive solution dependency
+Quantify learning behavior
+Provide domain-specific cognitive assistance
+
+📌 Version
+v1.0 – Rule-Based Cognitive Engine with Persistent Analytics
+
+Future versions will include AI-powered guarded hint generation.
